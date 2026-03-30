@@ -24,6 +24,22 @@ function App() {
     },
   ]);
 
+  function onTaskClick(taskId) {
+    const newTask = tasks.map((task) => {
+      if (task.id == taskId) {
+        return { ...task, isCompleted: !task.isCompleted };
+      }
+      return task;
+    });
+
+    setTask(newTask);
+  }
+
+  function onDeleteTaskClick(taskId) {
+    const newTask = tasks.filter((task) => task.id != taskId);
+    setTask(newTask);
+  }
+
   return (
     <div className="w-screen h-screen bg-slate-500 flex justify-center p-6">
       <div className="w-[500px] ">
@@ -31,7 +47,11 @@ function App() {
           Gerenciador de Tarefas
         </h1>
         <AddTask />
-        <Tasks tasks={tasks} />
+        <Tasks
+          tasks={tasks}
+          onTaskClick={onTaskClick}
+          onDeleteTaskClick={onDeleteTaskClick}
+        />
       </div>
     </div>
   );
